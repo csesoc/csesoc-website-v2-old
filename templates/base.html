@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}"{% if LANGUAGE_BIDI %} dir="rtl"{% endif %}>
+{% load pages_tags mezzanine_tags i18n future staticfiles %}
+<head>
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="keywords" content="{% block meta_keywords %}{% endblock %}">
+<meta name="description" content="{% block meta_description %}{% endblock %}">
+<title>{% block meta_title %}{% endblock %}{% if settings.SITE_TITLE %} | {{ settings.SITE_TITLE }}{% endif %}</title>
+<link rel="shortcut icon" href="{% static "img/favicon.ico" %}">
+
+{% ifinstalled mezzanine.blog %}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{% url "blog_post_feed" "rss" %}">
+<link rel="alternate" type="application/atom+xml" title="Atom" href="{% url "blog_post_feed" "atom" %}">
+{% endifinstalled %}
+
+{% compress css %}
+
+<link rel="stylesheet" href="{% static "css/foundation.css" %}">
+<link rel="stylesheet" href="{% static "css/csesoc.css" %}">
+
+<link href='http://fonts.googleapis.com/css?family=Roboto:100,300,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300,400' rel='stylesheet' type='text/css'>
+{% if LANGUAGE_BIDI %}
+<!-- <link rel="stylesheet" href="{% static "css/rtl.css" %}"> -->
+{% endif %}
+{% ifinstalled cartridge.shop %}
+<!-- <link rel="stylesheet" href="{% static "css/cartridge.css" %}"> -->
+{% if LANGUAGE_BIDI %}
+<!-- <link rel="stylesheet" href="{% static "css/cartridge.rtl.css" %}"> -->
+{% endif %}
+{% endifinstalled %}
+{% block extra_css %}{% endblock %}
+{% endcompress %}
+
+{% compress js %}
+<script src="{% static "js/vendor/jquery.js" %}"></script>
+<script src="{% static "js/vendor/custom.modernizr.js" %}"></script>
+{% block extra_js %}{% endblock %}
+{% endcompress %}
+<!--[if lt IE 9]>
+<script src="{% static "js/html5shiv.js" %}"></script>
+<![endif]-->
+
+{% block extra_head %}{% endblock %}
+
+</head>
+<body id="{% block body_id %}body{% endblock %}">
+
+        <!-- HEADER -->
+
+    <div class="feature photo show-for-medium-up">
+        <div id="subtitle">
+            {% if settings.SITE_TAGLINE %}{{ settings.SITE_TAGLINE }}{% endif %}
+        </div>
+    </div>
+
+    <a href="#csesoc">
+        <div id="title">
+        {% if settings.SITE_TITLE %}<h1 id="page-heading">{{ settings.SITE_TITLE }}</h1>{% endif %}
+        </div>
+    </a>
+    <div id="navbar"> 
+        <div id="scroller-anchor"></div> 
+        <div class="scroller photo"> 
+            <div id="navigation">
+                <div class="nav-large">
+                    <div id="nav-wrapper">
+                        {% page_menu "pages/menus/dropdown.html" %}
+                    </div>
+                    <div id="social-links" class="clearfix">
+                        <a href="https://www.facebook.com/csesoc">
+                            <div class="facebook social-link">
+                                <div class="social-wrapper">
+                                    <img src="/static/img/fbook.png" class="social-badge-fb"></img>
+                                    <div class="clearfix">Facebook</div>
+                                </div>
+                            </div>
+                        </a>
+                        <a href="https://plus.google.com/101220554982256575482">
+                            <div class="google social-link">
+                                <div class="social-wrapper">
+                                    <img src="/static/img/gplus.png" class="social-badge gp"></img>
+                                    <div class="clearfix">Google</div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="nav-small">
+                    <div id="nav-wrapper">
+                        <ul class="nav-grid dropdown nav-small-list">
+                            <li>
+                                <a href="#comp-club" class="menu-link">
+                                    <div class="menu-item-container comp-club-navbar">
+                                        <span class="menu-item">Comp Club</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#beta" class="menu-link">
+                                    <div class="menu-item-container beta-navbar">
+                                        <span class="menu-item">&beta;eta</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="hamburger" class="dropdown clearfix">
+                        <div class="slice"></div>
+                        <div class="slice"></div>
+                        <div class="slice"></div>
+                        {% page_menu "pages/menus/dropdown_ham.html" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="nav-padding"></div>
+
+
+
+
+
+
+
+    <!-- CONTENT -->
+
+    <div id="categories">
+        <h3>Categories</h3>
+        <div>
+            <div class="category" id="news">News</div>
+            <div class="category" id="social">Social</div>
+            <div class="category" id="careers">Careers</div>
+            <div class="category" id="tech">Tech</div>
+            <div class="category" id="beta">Beta</div>
+        </div>
+    </div>
+
+
+    <div id="content">
+        <h6>14 December 2013</h6>
+        <div class="news-card news">
+            <h2>2014 First Year Camp Leader Application</h2>
+            <p>
+                Are you interested in being a camp leader for CSESoc First Year Camp 2014? We are looking for enthusiastic and responsible students to help the new students have a great time at camp and make lots of new friends!
+            </p>
+            <p>
+                First year camp will be held Friday 21st - Sunday 23rd March (end of Week 3 of Semester 1). 
+            </p>
+            <p>
+                Apply here before 11:59:59pm on Tuesday December 31, 2013. You must be a CSE plan involved student to apply.
+            </p>
+        </div>
+
+        <h6>24 November 2013</h6>
+        <div class="news-card news">
+            <h2>CSESoc Heads Team 2014</h2>
+            <p>Congratulations to the new heads for 2014!
+                <ul>
+                    <li><strong>Beta head</strong>: Angelo Tamayo</li>
+                    <li><strong>Dev heads</strong>: John Wiseheart and Vincent Tran</li>
+                    <li><strong>High School heads</strong>: Mrinal Chakravarthy and Vanessa Ung</li>
+                    <li><strong>Publicity head</strong>: Davina Adisusila</li>
+                    <li><strong>Social heads</strong>: Lucas Pickup and Oliver Tan</li>
+                    <li><strong>Tech head</strong>: Karl Krauth</li>
+                </ul>
+            </p>
+        </div>
+
+        <h6>17 November 2013</h6>
+        <div class="news-card news">
+            <h2>Heads Application Reminder</h2>
+            <p>Applications for 2014 CSESoc Heads positions are still open! The Heads positions you can apply for are:</p>
+            <p><ul>
+                <li>Beta head</li>
+                <li>Dev head</li>
+                <li>High School head</li>
+                <li>Publicity head</li>
+                <li>Social head</li>
+                <li>Tech head</li>
+            </ul></p>
+            <p>To see more information about each team <a href="http://goo.gl/wElzb">click here</a>.</p>
+            <p>Send in an email to csesoc@cse.unsw.edu.au. In your application, make sure you consider the following:</p>
+            <p><ul>
+                <li>Mention any experience you have that might help you with the position,</li>
+                <li>Why you want to get involved in CSESoc,</li>
+                <li>What you think the job entails, and</li>
+                <li>What you would like to do if you got the role. </li>
+            </ul></p>
+            <p>Applications close <strong>11:59pm 21st November</strong> (this Thursday!).</p>
+        </div>
+        <div class="news-card careers">
+            <h2>Microsoft Job Application</h2>
+            <p>Microsoft will be back on campus in March 2014! Resumes are already being reviewed for future events so make sure you send your CVs now. It never hurts to get a head start :)</p>
+            <p>To find out more information <a href="http://goo.gl/MAa6n8">click here</a>.</p>
+        </div>
+        <h6>6 November 2013</h6>
+        <div class="news-card news">
+            <h2>Heads Nominations Open!</h2>
+            <p>Applications for 2014 CSESoc Heads positions are now open! The Heads positions you can apply for are:</p>
+            <p><ul>
+                <li>Beta Head</li>
+                <li>Dev Head</li>
+                <li>High School Head</li>
+                <li>Publicity Head</li>
+                <li>Social Head</li>
+                <li>Tech Head</li>
+            </ul></p>
+            <p>To see more information about each team <a href="https://www.csesoc.unsw.edu.au/teams/about/">click here</a>.</p>
+            <p>Send in an email to csesoc@cse.unsw.edu.au. In your application, make sure you consider the following:<br>
+            Mention any experience you have that might help you with the position,<br>
+            Why you want to get involved in CSESoc,<br>
+            What you think the job entails, and<br>
+            What you would like to do if you got the role.<br>
+            <br>
+            Applications close <strong>11:59pm 21st November</strong>.</p>
+        </div>
+
+        <h6>24 October 2013</h6>
+        <div class="news-card news">
+            <h2>CSESoc Exec Team 2014</h2>
+            <p>The election results are in. Congratulations to the new executive team:
+            <ul>
+                <li><strong>Co-Presidents</strong> - Vincent Chi-Kit Wong &amp; Pierre Estephan</li>
+                <li><strong>Treasurer</strong> - Matthew David Moss</li>
+                <li><strong>Secretary</strong> - Caroline Cham</li>
+                <li><strong>Arc Delegate</strong> - Lavender Chan</li>
+            </ul></p>
+        </div>
+        <div class="news-card social">
+            <h2>Last Chance Soctail Tickets @ Trivia</h2>
+            <p>Today is your last chance to buy a soctail ticket! Bring $50 (or $80 and a friend) to seminar room from 6pm tonight to get your ticket for the biggest event of the year! (not including camp :P)</p>
+        </div>
+        <div class="news-card social">
+            <h2>Epic BBQ</h2>
+            <p>Be sure to come along to our final BBQ for 2013 next Tuesday - we've got some extra niceties planned to celebrate the end of the year.</p>
+            <p><ul>
+                <li><strong>Date:</strong> Tuesday 29th October - Week 13</li>
+                <li><strong>Time:</strong> 11:30am -12:30pm</li>
+                <li><strong>Location:</strong> Physics Lawn</li>
+            </ul></p>
+        </div>
+        <div class="news-card careers">
+            <h2>Optiver Roles</h2>
+            <p>Optiver are currently hiring Graduate Developers and Trading Systems Engineers for both full time and Internships. Great team environment, extensive training and development, casual working environment and the opportunity to make a real impact in your role. <a href="http://www.optiver.com/sydney/careersoptiver/grads/">Apply now.</a></p>
+        </div>
+        <div class="news-card news">
+            <h2>ENGSoc AGM</h2>
+            <p>The ENGSoc AGM is on next Tuesday, bright and early.</p>
+            <p><ul>
+                <li><strong>Date:</strong> Tuesday 29th October - Week 13</li>
+                <li><strong>Time:</strong> 8am</li>
+                <li><strong>Location:</strong> Level 5 Design Studio - Mechanical Engineering Building</li>
+            </ul></p>
+        </div>
+    </div>
+
+
+
+
+    <!-- FOOTER -->
+
+    <div class="footer-photo">
+        <div id="footer">
+            &copy; Copyright 2013 CSESoc
+        </div>
+    </div>
+
+
+
+<script src="{% static "js/foundation.min.js" %}"></script>
+<script src="{% static "js/header.js" %}"></script>
+<script src="{% static "js/jquery.dropdown.js" %}"></script>
+<script>
+    $(document).foundation();
+</script>
+</body>
+</html>
