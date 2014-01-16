@@ -26,10 +26,17 @@ $ cd csesoc-website-v2
 $ pip install -r requirements.txt
 ```
 
-### Database Setup
+### Setup
+## Database Setup
 The database for the website is stored in soc-website.db so we only need to run syncdb
 ```
 $ python manage.py syncdb
+```
+
+## Git commit hook
+Automagically adds the branch name before the commit message
+```
+$ cp commit-msg .git/hooks/commit-msg && chmod +x .git/hooks/commit-msg
 ```
 
 ### Serving static files
