@@ -1,8 +1,8 @@
-$(function() {
+jQuery(function() {
     // Show the filter criteria fields when a filter option is selected.
-    $('.filter select').change(function() {
+    jQuery('.filter select').change(function() {
         var filtering = this.selectedIndex > 0;
-        var options = $(this).parent().parent().find('.options-div');
+        var options = jQuery(this).parent().parent().find('.options-div');
         options.css({visibility: filtering ? 'visible' : 'hidden'});
         // Focus the first field.
         if (filtering) {
@@ -15,8 +15,8 @@ $(function() {
         }
     }).change();
     // Toggle the include `All` checkboxes - grouped within table tags.
-    $('#content-main table').each(function(i, table) {
-        table = $(table);
+    jQuery('#content-main table').each(function(i, table) {
+        table = jQuery(table);
         var all = table.find(':checkbox.include-all');
         var others = table.find('.include :checkbox');
         others.change(function() {
@@ -27,8 +27,8 @@ $(function() {
         });
     });
     // Add a confirmation prompt for deleting entries.
-    $('input[name="delete"]').click(function() {
-        if ($('input[name="selected"]:checked').length == 0) {
+    jQuery('input[name="delete"]').click(function() {
+        if (jQuery('input[name="selected"]:checked').length == 0) {
             alert(gettext('No entries selected'));
             return false;
         } else {

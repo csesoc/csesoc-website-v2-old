@@ -9,7 +9,7 @@ if (at > -1) {
 
 var toggleID = function(opened, id) {
     // Add or remove the page ID from the cookie IDs string.
-    var index = $.inArray(id, ids.split(','));
+    var index = jQuery.inArray(id, ids.split(','));
     if (opened) {
         if (index == -1) {
             if (ids) {ids += ',';}
@@ -24,21 +24,21 @@ var toggleID = function(opened, id) {
 };
 
 function showButtonWithChildren() {
-    $('li:has(li) .tree-toggle').css({visibility: 'visible'});
-    $('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
+    jQuery('li:has(li) .tree-toggle').css({visibility: 'visible'});
+    jQuery('li:not(:has(li)) .tree-toggle').css({visibility: 'hidden'});
 }
 
-$(function() {
+jQuery(function() {
 
     showButtonWithChildren();
 
     if (window.__grappelli_installed) {
-        $('.delete').addClass('grappelli-delete');
+        jQuery('.delete').addClass('grappelli-delete');
     }
 
-    $('#tree .tree-toggle').click(function() {
+    jQuery('#tree .tree-toggle').click(function() {
         // Show/hide the branch and toggle the icon.
-        var pageLink = $(this);
+        var pageLink = jQuery(this);
         pageLink.parent().parent().find('ol:first').toggle();
         pageLink.find('.icon').toggle();
         // Add or remove the page ID from the cookie.
@@ -49,10 +49,10 @@ $(function() {
     });
 
     // Show previously opened branches.
-    $('#tree ol').find('ol').hide();
+    jQuery('#tree ol').find('ol').hide();
     if (ids) {
-        $('#page-' + ids.split(',').join(', #page-')).each(function(){
-            var pageLink = $(this);
+        jQuery('#page-' + ids.split(',').join(', #page-')).each(function(){
+            var pageLink = jQuery(this);
             pageLink.parent().parent().find('ol:first').toggle();
             pageLink.find('.close').css('display', 'inline');
             pageLink.find('.open').css('display', 'none');
@@ -61,10 +61,10 @@ $(function() {
 
     // The dropdown list for adding a new page contains URLs for each
     // model - redirect when selected.
-    $('.addlist').change(function() {
+    jQuery('.addlist').change(function() {
         // Ensure the branch is saved as open when adding to it so that
         // the new branch will be visible directly after saving.
-        var id = $(this).attr('id');
+        var id = jQuery(this).attr('id');
         if (id) {
             toggleID(true, id.split('-')[1]);
         }
@@ -89,7 +89,7 @@ $(function() {
             }).get()
         };
 
-        $.post(window.__page_ordering_url, args, function(data) {
+        jQuery.post(window.__page_ordering_url, args, function(data) {
             if (String(data).substr(0, 2) !== "ok") {
                 alert("Error occured: " + data + "\nOrdering wasn't updated.");
             }
@@ -101,7 +101,7 @@ $(function() {
     // Make the pages sortable via drag and drop.
     // The `connectWith` option needs to be set separately to get
     // around a performance bug with `sortable`.
-    var $tree = $('#tree > ol').nestedSortable({
+    var $tree = jQuery('#tree > ol').nestedSortable({
         handle: '.ordering',
         opacity: 0.5,
         stop: updateOrdering,

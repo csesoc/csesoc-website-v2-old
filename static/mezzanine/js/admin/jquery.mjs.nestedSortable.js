@@ -13,7 +13,7 @@
 
 (function($) {
 
-	$.widget("mjs.nestedSortable", $.extend({}, $.ui.sortable.prototype, {
+	jQuery.widget("mjs.nestedSortable", jQuery.extend({}, jQuery.ui.sortable.prototype, {
 
 		options: {
 			doNotClear: false,
@@ -47,12 +47,12 @@
 			// mjs - force 'intersect' tolerance method if we have a tree with expanding/collapsing functionality
 			if (this.options.isTree) this.options.tolerance = 'intersect';
 
-			$.ui.sortable.prototype._create.apply(this, arguments);
+			jQuery.ui.sortable.prototype._create.apply(this, arguments);
 
 			// mjs - prepare the tree by applying the right classes (the CSS is responsible for actual hide/show functionality)
 			if (this.options.isTree) {
 				var self = this;
-				$(this.items).each(function() {
+				jQuery(this.items).each(function() {
 					var $li = this.item;
 					if ($li.children(self.options.listType).length) {
 						$li.addClass(self.options.branchClass);
@@ -70,7 +70,7 @@
 			this.element
 				.removeData("nestedSortable")
 				.unbind(".nestedSortable");
-			return $.ui.sortable.prototype.destroy.apply(this, arguments);
+			return jQuery.ui.sortable.prototype.destroy.apply(this, arguments);
 		},
 
 		_mouseDrag: function(event) {
@@ -101,20 +101,20 @@
 
 				} else {
 
-					if(event.pageY - $(document).scrollTop() < o.scrollSensitivity)
-						scrolled = $(document).scrollTop($(document).scrollTop() - o.scrollSpeed);
-					else if($(window).height() - (event.pageY - $(document).scrollTop()) < o.scrollSensitivity)
-						scrolled = $(document).scrollTop($(document).scrollTop() + o.scrollSpeed);
+					if(event.pageY - jQuery(document).scrollTop() < o.scrollSensitivity)
+						scrolled = jQuery(document).scrollTop(jQuery(document).scrollTop() - o.scrollSpeed);
+					else if(jQuery(window).height() - (event.pageY - jQuery(document).scrollTop()) < o.scrollSensitivity)
+						scrolled = jQuery(document).scrollTop(jQuery(document).scrollTop() + o.scrollSpeed);
 
-					if(event.pageX - $(document).scrollLeft() < o.scrollSensitivity)
-						scrolled = $(document).scrollLeft($(document).scrollLeft() - o.scrollSpeed);
-					else if($(window).width() - (event.pageX - $(document).scrollLeft()) < o.scrollSensitivity)
-						scrolled = $(document).scrollLeft($(document).scrollLeft() + o.scrollSpeed);
+					if(event.pageX - jQuery(document).scrollLeft() < o.scrollSensitivity)
+						scrolled = jQuery(document).scrollLeft(jQuery(document).scrollLeft() - o.scrollSpeed);
+					else if(jQuery(window).width() - (event.pageX - jQuery(document).scrollLeft()) < o.scrollSensitivity)
+						scrolled = jQuery(document).scrollLeft(jQuery(document).scrollLeft() + o.scrollSpeed);
 
 				}
 
-				if(scrolled !== false && $.ui.ddmanager && !o.dropBehaviour)
-					$.ui.ddmanager.prepareOffsets(this, event);
+				if(scrolled !== false && jQuery.ui.ddmanager && !o.dropBehaviour)
+					jQuery.ui.ddmanager.prepareOffsets(this, event);
 			}
 
 			//Regenerate the absolute position used for position checks
@@ -140,24 +140,24 @@
 
 				if(itemElement != this.currentItem[0] //cannot intersect with itself
 					&&	this.placeholder[intersection == 1 ? "next" : "prev"]()[0] != itemElement //no useless actions that have been done before
-					&&	!$.contains(this.placeholder[0], itemElement) //no action if the item moved is the parent of the item checked
-					&& (this.options.type == 'semi-dynamic' ? !$.contains(this.element[0], itemElement) : true)
+					&&	!jQuery.contains(this.placeholder[0], itemElement) //no action if the item moved is the parent of the item checked
+					&& (this.options.type == 'semi-dynamic' ? !jQuery.contains(this.element[0], itemElement) : true)
 					//&& itemElement.parentNode == this.placeholder[0].parentNode // only rearrange items within the same container
 				) {
 
 					// mjs - we are intersecting an element: trigger the mouseenter event and store this state
 					if (!this.mouseentered) {
-						$(itemElement).mouseenter();
+						jQuery(itemElement).mouseenter();
 						this.mouseentered = true;
 					}
 
 					// mjs - if the element has children and they are hidden, show them after a delay (CSS responsible)
-					if (o.isTree && $(itemElement).hasClass(o.collapsedClass) && o.expandOnHover) {
+					if (o.isTree && jQuery(itemElement).hasClass(o.collapsedClass) && o.expandOnHover) {
 						if (!this.hovering) {
-							$(itemElement).addClass(o.hoveringClass);
+							jQuery(itemElement).addClass(o.hoveringClass);
 							var self = this;
 							this.hovering = window.setTimeout(function() {
-								$(itemElement).removeClass(o.collapsedClass).addClass(o.expandedClass);
+								jQuery(itemElement).removeClass(o.collapsedClass).addClass(o.expandedClass);
 								self.refreshPositions();
 								self._trigger("expand", event, self._uiHash());
 							}, o.expandOnHover);
@@ -168,9 +168,9 @@
 
 					// mjs - rearrange the elements and reset timeouts and hovering state
 					if (this.options.tolerance == "pointer" || this._intersectsWithSides(item)) {
-						$(itemElement).mouseleave();
+						jQuery(itemElement).mouseleave();
 						this.mouseentered = false;
-						$(itemElement).removeClass(o.hoveringClass);
+						jQuery(itemElement).removeClass(o.hoveringClass);
 						this.hovering && window.clearTimeout(this.hovering);
 						this.hovering = null;
 						this._rearrange(event, item);
@@ -187,18 +187,18 @@
 			}
 
 			var parentItem = (this.placeholder[0].parentNode.parentNode &&
-							 $(this.placeholder[0].parentNode.parentNode).closest('.ui-sortable').length)
-				       			? $(this.placeholder[0].parentNode.parentNode)
+							 jQuery(this.placeholder[0].parentNode.parentNode).closest('.ui-sortable').length)
+				       			? jQuery(this.placeholder[0].parentNode.parentNode)
 				       			: null,
 			    level = this._getLevel(this.placeholder),
 			    childLevels = this._getChildLevels(this.helper);
 
 			// mjs - to find the previous sibling in the list, keep backtracking until we hit a valid list item.
-			var previousItem = this.placeholder[0].previousSibling ? $(this.placeholder[0].previousSibling) : null;
+			var previousItem = this.placeholder[0].previousSibling ? jQuery(this.placeholder[0].previousSibling) : null;
 			if (previousItem != null) {
 				while (previousItem[0].nodeName.toLowerCase() != 'li' || previousItem[0] == this.currentItem[0] || previousItem[0] == this.helper[0]) {
 					if (previousItem[0].previousSibling) {
-						previousItem = $(previousItem[0].previousSibling);
+						previousItem = jQuery(previousItem[0].previousSibling);
 					} else {
 						previousItem = null;
 						break;
@@ -207,11 +207,11 @@
 			}
 
 			// mjs - o find the next sibling in the list, keep stepping forward until we hit a valid list item.
-			var nextItem = this.placeholder[0].nextSibling ? $(this.placeholder[0].nextSibling) : null;
+			var nextItem = this.placeholder[0].nextSibling ? jQuery(this.placeholder[0].nextSibling) : null;
 			if (nextItem != null) {
 				while (nextItem[0].nodeName.toLowerCase() != 'li' || nextItem[0] == this.currentItem[0] || nextItem[0] == this.helper[0]) {
 					if (nextItem[0].nextSibling) {
-						nextItem = $(nextItem[0].nextSibling);
+						nextItem = jQuery(nextItem[0].nextSibling);
 					} else {
 						nextItem = null;
 						break;
@@ -269,7 +269,7 @@
 			this._contactContainers(event);
 
 			//Interconnect with droppables
-			if($.ui.ddmanager) $.ui.ddmanager.drag(this, event);
+			if(jQuery.ui.ddmanager) jQuery.ui.ddmanager.drag(this, event);
 
 			//Call callbacks
 			this._trigger('sort', event, this._uiHash());
@@ -287,9 +287,9 @@
 				this.placeholder.removeClass(this.options.errorClass);
 
 				if (this.domPosition.prev) {
-					$(this.domPosition.prev).after(this.placeholder);
+					jQuery(this.domPosition.prev).after(this.placeholder);
 				} else {
-					$(this.domPosition.parent).prepend(this.placeholder);
+					jQuery(this.domPosition.parent).prepend(this.placeholder);
 				}
 
 				this._trigger("revert", event, this._uiHash());
@@ -298,12 +298,12 @@
 
 
 			// mjs - clear the hovering timeout, just to be sure
-			$('.'+this.options.hoveringClass).mouseleave().removeClass(this.options.hoveringClass);
+			jQuery('.'+this.options.hoveringClass).mouseleave().removeClass(this.options.hoveringClass);
 			this.mouseentered = false;
 			this.hovering && window.clearTimeout(this.hovering);
 			this.hovering = null;
 
-			$.ui.sortable.prototype._mouseStop.apply(this, arguments);
+			jQuery.ui.sortable.prototype._mouseStop.apply(this, arguments);
 
 		},
 
@@ -312,9 +312,9 @@
 
 			var half = this.options.isTree ? .8 : .5;
 
-			var isOverBottomHalf = $.ui.isOverAxis(this.positionAbs.top + this.offset.click.top, item.top + (item.height*half), item.height),
-				isOverTopHalf = $.ui.isOverAxis(this.positionAbs.top + this.offset.click.top, item.top - (item.height*half), item.height),
-				isOverRightHalf = $.ui.isOverAxis(this.positionAbs.left + this.offset.click.left, item.left + (item.width/2), item.width),
+			var isOverBottomHalf = jQuery.ui.isOverAxis(this.positionAbs.top + this.offset.click.top, item.top + (item.height*half), item.height),
+				isOverTopHalf = jQuery.ui.isOverAxis(this.positionAbs.top + this.offset.click.top, item.top - (item.height*half), item.height),
+				isOverRightHalf = jQuery.ui.isOverAxis(this.positionAbs.left + this.offset.click.left, item.left + (item.width/2), item.width),
 				verticalDirection = this._getDragVerticalDirection(),
 				horizontalDirection = this._getDragHorizontalDirection();
 
@@ -328,7 +328,7 @@
 
 		_clear: function(event, noPropagation) {
 
-			$.ui.sortable.prototype._clear.apply(this, arguments);
+			jQuery.ui.sortable.prototype._clear.apply(this, arguments);
 
 			// mjs - clean last empty ul/ol
 			for (var i = this.items.length - 1; i >= 0; i--) {
@@ -340,14 +340,14 @@
 
 		serialize: function(options) {
 
-			var o = $.extend({}, this.options, options),
+			var o = jQuery.extend({}, this.options, options),
 				items = this._getItemsAsjQuery(o && o.connected),
 			    str = [];
 
-			$(items).each(function() {
-				var res = ($(o.item || this).attr(o.attribute || 'id') || '')
+			jQuery(items).each(function() {
+				var res = (jQuery(o.item || this).attr(o.attribute || 'id') || '')
 						.match(o.expression || (/(.+)[-=_](.+)/)),
-				    pid = ($(o.item || this).parent(o.listType)
+				    pid = (jQuery(o.item || this).parent(o.listType)
 						.parent(o.items)
 						.attr(o.attribute || 'id') || '')
 						.match(o.expression || (/(.+)[-=_](.+)/));
@@ -369,11 +369,11 @@
 
 		toHierarchy: function(options) {
 
-			var o = $.extend({}, this.options, options),
+			var o = jQuery.extend({}, this.options, options),
 				sDepth = o.startDepthCount || 0,
 			    ret = [];
 
-			$(this.element).children(o.items).each(function () {
+			jQuery(this.element).children(o.items).each(function () {
 				var level = _recursiveItems(this);
 				ret.push(level);
 			});
@@ -381,12 +381,12 @@
 			return ret;
 
 			function _recursiveItems(item) {
-				var id = ($(item).attr(o.attribute || 'id') || '').match(o.expression || (/(.+)[-=_](.+)/));
+				var id = (jQuery(item).attr(o.attribute || 'id') || '').match(o.expression || (/(.+)[-=_](.+)/));
 				if (id) {
 					var currentItem = {"id" : id[2]};
-					if ($(item).children(o.listType).children(o.items).length > 0) {
+					if (jQuery(item).children(o.listType).children(o.items).length > 0) {
 						currentItem.children = [];
-						$(item).children(o.listType).children(o.items).each(function() {
+						jQuery(item).children(o.listType).children(o.items).each(function() {
 							var level = _recursiveItems(this);
 							currentItem.children.push(level);
 						});
@@ -398,7 +398,7 @@
 
 		toArray: function(options) {
 
-			var o = $.extend({}, this.options, options),
+			var o = jQuery.extend({}, this.options, options),
 				sDepth = o.startDepthCount || 0,
 			    ret = [],
 			    left = 2;
@@ -408,10 +408,10 @@
 				"parent_id": 'none',
 				"depth": sDepth,
 				"left": '1',
-				"right": ($(o.items, this.element).length + 1) * 2
+				"right": (jQuery(o.items, this.element).length + 1) * 2
 			});
 
-			$(this.element).children(o.items).each(function () {
+			jQuery(this.element).children(o.items).each(function () {
 				left = _recursiveArray(this, sDepth + 1, left);
 			});
 
@@ -425,20 +425,20 @@
 				    id,
 				    pid;
 
-				if ($(item).children(o.listType).children(o.items).length > 0) {
+				if (jQuery(item).children(o.listType).children(o.items).length > 0) {
 					depth ++;
-					$(item).children(o.listType).children(o.items).each(function () {
-						right = _recursiveArray($(this), depth, right);
+					jQuery(item).children(o.listType).children(o.items).each(function () {
+						right = _recursiveArray(jQuery(this), depth, right);
 					});
 					depth --;
 				}
 
-				id = ($(item).attr(o.attribute || 'id')).match(o.expression || (/(.+)[-=_](.+)/));
+				id = (jQuery(item).attr(o.attribute || 'id')).match(o.expression || (/(.+)[-=_](.+)/));
 
 				if (depth === sDepth + 1) {
 					pid = o.rootID;
 				} else {
-					var parentItem = ($(item).parent(o.listType)
+					var parentItem = (jQuery(item).parent(o.listType)
 											 .parent(o.items)
 											 .attr(o.attribute || 'id'))
 											 .match(o.expression || (/(.+)[-=_](.+)/));
@@ -458,15 +458,15 @@
 		_clearEmpty: function(item) {
 			var o = this.options;
 
-			var emptyList = $(item).children(o.listType);
+			var emptyList = jQuery(item).children(o.listType);
 
 			if (emptyList.length && !emptyList.children().length && !o.doNotClear) {
-				o.isTree && $(item).removeClass(o.branchClass + ' ' + o.expandedClass).addClass(o.leafClass);
+				o.isTree && jQuery(item).removeClass(o.branchClass + ' ' + o.expandedClass).addClass(o.leafClass);
 				emptyList.remove();
 			} else if (o.isTree && emptyList.length && emptyList.children().length && emptyList.is(':visible')) {
-				$(item).removeClass(o.leafClass).addClass(o.branchClass + ' ' + o.expandedClass);
+				jQuery(item).removeClass(o.leafClass).addClass(o.branchClass + ' ' + o.expandedClass);
 			} else if (o.isTree && emptyList.length && emptyList.children().length && !emptyList.is(':visible')) {
-				$(item).removeClass(o.leafClass).addClass(o.branchClass + ' ' + o.collapsedClass);
+				jQuery(item).removeClass(o.leafClass).addClass(o.branchClass + ' ' + o.collapsedClass);
 			}
 
 		},
@@ -493,7 +493,7 @@
 			    result = 0;
 			depth = depth || 0;
 
-			$(parent).children(o.listType).children(o.items).each(function (index, child) {
+			jQuery(parent).children(o.listType).children(o.items).each(function (index, child) {
 					result = Math.max(self._getChildLevels(child, depth + 1), result);
 			});
 
@@ -502,7 +502,7 @@
 
 		_isAllowed: function(parentItem, level, levels) {
 			var o = this.options,
-				isRoot = $(this.currentItem[0].parentNode).hasClass('ui-sortable') ? true : false,
+				isRoot = jQuery(this.currentItem[0].parentNode).hasClass('ui-sortable') ? true : false,
 				maxLevels = this.placeholder.closest('.ui-sortable').nestedSortable('option', 'maxLevels'); // this takes into account the maxLevels set to the recipient list
 
 			// mjs - is the root protected?
@@ -528,5 +528,5 @@
 
 	}));
 
-	$.mjs.nestedSortable.prototype.options = $.extend({}, $.ui.sortable.prototype.options, $.mjs.nestedSortable.prototype.options);
+	jQuery.mjs.nestedSortable.prototype.options = jQuery.extend({}, jQuery.ui.sortable.prototype.options, jQuery.mjs.nestedSortable.prototype.options);
 })(jQuery);

@@ -1,24 +1,24 @@
-$(document).ready(function(){
+jQuery(document).ready(function(){
     
     /// FIELDSETS
-    $('fieldset[class*="collapse-closed"]').each(function() {
-        $(this).addClass("collapsed");
-        $(this).find('h2:first').addClass("collapse-toggle");
+    jQuery('fieldset[class*="collapse-closed"]').each(function() {
+        jQuery(this).addClass("collapsed");
+        jQuery(this).find('h2:first').addClass("collapse-toggle");
     });
-    $('fieldset[class*="collapse-open"]').each(function() {
-        $(this).find('h2:first').addClass("collapse-toggle");
+    jQuery('fieldset[class*="collapse-open"]').each(function() {
+        jQuery(this).find('h2:first').addClass("collapse-toggle");
     });
-    $('h2.collapse-toggle').bind("click", function(e){
-        $(this).parent().toggleClass('collapsed');
-        $(this).parent().toggleClass('collapse-closed');
-        $(this).parent().toggleClass('collapse-open');
+    jQuery('h2.collapse-toggle').bind("click", function(e){
+        jQuery(this).parent().toggleClass('collapsed');
+        jQuery(this).parent().toggleClass('collapse-closed');
+        jQuery(this).parent().toggleClass('collapse-open');
     });
     
     /// OPEN FIELDSETS WITH ERRORS
-    $('fieldset[class*="collapse-closed"]').children('div[class*="errors"]').each(function(i) {
-        $(this).parent().toggleClass("collapsed");
-        $(this).parent().toggleClass('collapse-closed');
-        $(this).parent().toggleClass('collapse-open');
+    jQuery('fieldset[class*="collapse-closed"]').children('div[class*="errors"]').each(function(i) {
+        jQuery(this).parent().toggleClass("collapsed");
+        jQuery(this).parent().toggleClass('collapse-closed');
+        jQuery(this).parent().toggleClass('collapse-open');
     });
     
 });

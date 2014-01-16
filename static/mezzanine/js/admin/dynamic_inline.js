@@ -1,6 +1,6 @@
 
 var selectFieldDirty = function(select, unselectedIndex) {
-    return $.grep(select.options, function(option) {
+    return jQuery.grep(select.options, function(option) {
         return option.selected && !option.defaultSelected;
     }).length > 0 && select.selectedIndex != unselectedIndex;
 };
@@ -8,7 +8,7 @@ var selectFieldDirty = function(select, unselectedIndex) {
 var anyFieldsDirty = function(fields) {
     // Return true if any of the fields have been given a value
     // that isn't the default.
-    return $.grep(fields, function(field) {
+    return jQuery.grep(fields, function(field) {
         switch (field.type) {
             case 'select-one':
                 return selectFieldDirty(field, 0);
@@ -30,27 +30,27 @@ var anyFieldsDirty = function(fields) {
     }).length > 0;
 };
 
-$(function() {
+jQuery(function() {
 
     var itemSelector = window.__grappelli_installed ? '.items' : 'tbody';
     var parentSelector = '.dynamic-inline ' + itemSelector;
     var orderSelector = window.__grappelli_installed ? '._order input' : '.field-_order input';
 
     // Apply drag and drop to orderable inlines.
-    $(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7',
+    jQuery(parentSelector).sortable({handle: '.ordering', axis: 'y', opacity: '.7',
                                 placeholder: 'placeholder'});
-    $(parentSelector + ' .order').disableSelection();
-    $('.ordering').css({cursor: 'move'});
+    jQuery(parentSelector + ' .order').disableSelection();
+    jQuery('.ordering').css({cursor: 'move'});
 
     // Set the value of the _order fields on submit.
-    $('input[type=submit]').click(function() {
+    jQuery('input[type=submit]').click(function() {
         if (typeof tinyMCE != 'undefined') {
             tinyMCE.triggerSave();
         }
-        $.each($(parentSelector), function(i, parent) {
+        jQuery.each(jQuery(parentSelector), function(i, parent) {
             var order = 0;
-            $.each($(parent).find(orderSelector), function(i, field) {
-                var parent = $(field).parent().parent();
+            jQuery.each(jQuery(parent).find(orderSelector), function(i, field) {
+                var parent = jQuery(field).parent().parent();
                 if (window.__grappelli_installed) {
                     parent = parent.parent();
                 }
@@ -65,30 +65,30 @@ $(function() {
     });
 
     // Hide the exta inlines.
-    $(parentSelector + ' > *:not(.has_original)').hide();
+    jQuery(parentSelector + ' > *:not(.has_original)').hide();
     // Re-show inlines with errors, poetentially hidden by previous line.
-    var errors = $(parentSelector + ' ul[class=errorlist]').parent().parent();
+    var errors = jQuery(parentSelector + ' ul[class=errorlist]').parent().parent();
     if (window.__grappelli_installed) {
         errors = errors.parent();
     }
     errors.show();
 
     // Show a new inline when the 'Add another' link is clicked.
-    var addAnother = $('.dynamic-inline .add-another a');
-    $(addAnother).click(function() {
-        var button = $(this);
+    var addAnother = jQuery('.dynamic-inline .add-another a');
+    jQuery(addAnother).click(function() {
+        var button = jQuery(this);
         var getRows = function() {
             return button.parent().parent().find(itemSelector +' > *:hidden');
         };
         var rows = getRows();
-        $(rows[0]).show();
+        jQuery(rows[0]).show();
         // Grappelli's inline header for tabular inlines is
         // actually part of the selector, so for it we run this twice.
-        if (window.__grappelli_installed && $(rows[0]).hasClass('legend')) {
-            $(rows[1]).show();
+        if (window.__grappelli_installed && jQuery(rows[0]).hasClass('legend')) {
+            jQuery(rows[1]).show();
         }
         if (getRows().length === 0) {
-            $(this).hide();
+            jQuery(this).hide();
         }
         return false;
     });
