@@ -1,6 +1,6 @@
 #!/bin/bash
 
-path=`readlink -m "$0"` | sed 's/\/test$//'
+path=`readlink -m "$0" | sed 's/\/static.sh$//'`
 if [[ `grep -Fq "STATIC_ROOT" "$path/local_settings.py" 2> /dev/null` ]]
 then 
   echo "STATIC_ROOT already in local_settings.py. Please edit manually."
